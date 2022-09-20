@@ -35,7 +35,7 @@ class Beast extends React.Component {
             <Card.Text className="fst-italic">{this.state.description}</Card.Text>
             {/* add the click event listener: 
                 in the {} in onClick is a reference to the event listener method */}
-            <Button variant="primary" onClick={this.handleClick}>Go somewhere</Button>
+            <Button variant="primary" onClick={this.handleClick}>Like the Beast!</Button>
           </Card.Body>
         </Card> 
       </>
