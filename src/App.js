@@ -11,8 +11,8 @@ class App extends React.Component {
   render() {
     return(
       <>
-        {data.map((beast, index) => {
-          return <Beast src={beast.imgUrl} description={beast.description} key={index} />
+        {data.map((beast) => {
+          return <Beast src={beast.image_url} description={beast.description} key={beast._id} />
         })}
       </>
     );
