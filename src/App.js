@@ -1,5 +1,5 @@
 import React from 'react';
-import Beast from './components/Beast'
+import HornedBeast from './components/HornedBeast'
 
 // card imports
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,7 +12,7 @@ class App extends React.Component {
     return(
       <>
         {data.map((beast) => {
-          return <Beast src={beast.image_url} description={beast.description} key={beast._id} />
+          return <HornedBeast src={beast.image_url} alt={beast.keyword} description={beast.description} title={beast.title} horns={beast.horns} key={beast._id} />
         })}
       </>
     );
