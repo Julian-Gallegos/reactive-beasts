@@ -1,10 +1,16 @@
+// React and Component imports
 import React from 'react';
+import Container from 'react-bootstrap/Container';
 import Main from './components/Main';
 
-// card imports
+// Bootstrap imports
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Modal from 'react-bootstrap/Modal';
-import Image from 'react-bootstrap/Image'
+import Image from 'react-bootstrap/Image';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 // import data.json
 import data from "./assets/data.json"
@@ -18,6 +24,7 @@ class App extends React.Component {
     this.state = {
       showModal: false,
       selectedBeast: data[0],
+      searchedBeasts: data,
     }
   }
   setShowModalTrue = (key) => {
@@ -30,21 +37,38 @@ class App extends React.Component {
   setShowModalFalse = () => {
     this.setState({ showModal: false });
   }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(e.target.formBeastName.value);
+    console.log(e.target.formHorns.value);
+
+    const matches = data.filter(beast => beast.title.includes(e.target.formBeastName.value));
+    console.log(matches);
+    this.setState({searchedBeasts: matches});
+  }
+
   render() {
     return(
       <>
-        {data.map((beast) => {
-          return <Main 
-                    src={beast.image_url} 
-                    alt={beast.keyword} 
-                    description={beast.description} 
-                    title={beast.title} 
-                    horns={beast.horns} 
-                    key={beast._id}
-                    id={beast._id}
-                    setShowModalTrue={this.setShowModalTrue}
-                  />
-        })}
+        <Container> Gallery of Beasts</Container>
+        <BeastForm handleSubmit={this.handleSubmit} />
+        <Row>
+          {this.state.searchedBeasts.map((beast) => {
+            return (
+              <Col key={beast._id}>
+                <Main
+                  src={beast.image_url}
+                  alt={beast.keyword}
+                  description={beast.description}
+                  title={beast.title}
+                  horns={beast.horns}
+                  id={beast._id}
+                  setShowModalTrue={this.setShowModalTrue}
+                />
+              </Col>
+            )
+          })}
+        </Row>
         <SelectedBeast showModal={this.state.showModal} setShowModalFalse={this.setShowModalFalse} selectedBeast={this.state.selectedBeast} />
       </>
     );
@@ -68,6 +92,32 @@ class SelectedBeast extends React.Component {
         </Modal>
       </>
     );
+  }
+}
+
+class BeastForm extends React.Component {
+  render() {
+    return (
+      <>
+        <Container>
+          <Form onSubmit={this.props.handleSubmit}>
+            <Form.Group className="mb-3" controlId="formBeastName">
+              <Form.Label>Search for Beast by Name</Form.Label>
+              <Form.Control placeholder="Enter name" />
+              <Form.Text className="text-muted"></Form.Text>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formHorns">
+              <Form.Label>Enter # Horns</Form.Label>
+              <Form.Control placeholder="Type a numer..." />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+          </Form>
+        </Container>
+      </>
+    )
   }
 }
 
