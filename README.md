@@ -12,8 +12,16 @@ As an earlier commit message pointed out, I followed along during lecture and co
 
 ## Time sheet lab 3
 
-- Number and name of feature: Display A Modal
+- Number and name of feature: Feature 1. Display A Modal
   - Estimate of time needed to complete: 30 minutes
   - Start time: 12:10am PST
   - Finish time: 12:50am PST
   - Actual time needed to complete: 40 minutes
+
+## Time sheet lab 4
+
+- Number and name of feature: Feature 1. Filter by Numbers of Horns
+  - Estimate of time needed to complete: 45 minutes
+  - Start time: 2:40pm PST
+  - Finish time: 4:10pm PST
+  - Actual time needed to complete: 90 minutes
