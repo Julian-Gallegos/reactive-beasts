@@ -4,7 +4,6 @@ import Main from './components/Main';
 // card imports
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image'
 
 // import data.json
