@@ -1,14 +1,11 @@
 // React and Component imports
 import React from 'react';
-import Container from 'react-bootstrap/Container';
 import Main from './components/Main';
+import SelectedBeast from './components/SelectedBeast';
+import BeastForm from './components/BeastForm';
 
 // Bootstrap imports
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Modal from 'react-bootstrap/Modal';
-import Image from 'react-bootstrap/Image';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
@@ -47,7 +44,7 @@ class App extends React.Component {
   render() {
     return(
       <>
-        <Container>Gallery of Beasts</Container>
+        <h1 className="text-center">Gallery of Beasts</h1>
         <BeastForm handleChange={this.handleChange} />
         <Row>
           {this.state.searchedBeasts.map((beast) => {
@@ -72,45 +69,8 @@ class App extends React.Component {
   }
 }
 
-class SelectedBeast extends React.Component {
-  render() {
-    return (
-      <>
-        <Modal show={this.props.showModal} onHide={this.props.setShowModalFalse}>
-          <Modal.Header closeButton>
-            <Modal.Title>{this.props.selectedBeast.keyword}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <span>
-              <Image src={this.props.selectedBeast.image_url} fluid={true} className="w-100"></Image>
-              <div>{this.props.selectedBeast.description}</div>
-            </span>
-          </Modal.Body>
-        </Modal>
-      </>
-    );
-  }
-}
 
-class BeastForm extends React.Component {
-  render() {
-    return (
-      <>
-        <Container>
-          <Form onChange={this.props.handleChange}>
-            <Form.Select className="mb-3">
-              <option>Filter beasts by selecting # of horns</option>
-              <option>All</option>
-              <option value={1}>One horn</option>
-              <option value={2}>Two horns</option>
-              <option value={3}>Three horns</option>
-              <option value={100}>LOTS of horns</option>
-            </Form.Select>
-          </Form>
-        </Container>
-      </>
-    )
-  }
-}
+
+
 
 export default App;

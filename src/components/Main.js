@@ -32,7 +32,8 @@ class Main extends React.Component {
           <Card.Img variant="top" src={this.state.src} alt={this.state.alt} onClick={()=> this.props.setShowModalTrue(this.props.id)} />
           <Card.Body>
             <Card.Title>{this.state.title}</Card.Title>
-            <Card.Text className="fst-italic">{this.state.description} This type of beast has {this.state.horns} horn(s)! {this.state.hearts}</Card.Text>
+            {/* I liked Julian Barker's like threshold idea, so I am using it now too, but all credit goes to him for the idea! */}
+            <Card.Text className="fst-italic">{this.state.description} {(this.state.hearts.length > 10 ? '❤️x'+this.state.hearts.length/2+'!' : this.state.hearts)}</Card.Text>
             <Button variant="primary" onClick={this.handleClick}>Like the Beast!</Button>
           </Card.Body>
         </Card> 
