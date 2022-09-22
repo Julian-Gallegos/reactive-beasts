@@ -1,10 +1,13 @@
+// React and Component imports
 import React from 'react';
 import Main from './components/Main';
+import SelectedBeast from './components/SelectedBeast';
+import BeastForm from './components/BeastForm';
 
-// card imports
+// Bootstrap imports
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Modal from 'react-bootstrap/Modal';
-import Image from 'react-bootstrap/Image'
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 // import data.json
 import data from "./assets/data.json"
@@ -18,6 +21,7 @@ class App extends React.Component {
     this.state = {
       showModal: false,
       selectedBeast: data[0],
+      searchedBeasts: data,
     }
   }
   setShowModalTrue = (key) => {
@@ -30,45 +34,43 @@ class App extends React.Component {
   setShowModalFalse = () => {
     this.setState({ showModal: false });
   }
+  handleChange = (e) => {
+    e.preventDefault();
+    let formSelection = e.target.value;
+    const matches = formSelection === 'All' ? data : data.filter(beast => beast.horns === Number(formSelection));
+    this.setState({searchedBeasts: matches});
+  }
+
   render() {
     return(
       <>
-        {data.map((beast) => {
-          return <Main 
-                    src={beast.image_url} 
-                    alt={beast.keyword} 
-                    description={beast.description} 
-                    title={beast.title} 
-                    horns={beast.horns} 
-                    key={beast._id}
-                    id={beast._id}
-                    setShowModalTrue={this.setShowModalTrue}
-                  />
-        })}
+        <h1 className="text-center">Gallery of Beasts</h1>
+        <BeastForm handleChange={this.handleChange} />
+        <Row>
+          {this.state.searchedBeasts.map((beast) => {
+            return (
+              <Col key={beast._id}>
+                <Main
+                  src={beast.image_url}
+                  alt={beast.keyword}
+                  description={beast.description}
+                  title={beast.title}
+                  horns={beast.horns}
+                  id={beast._id}
+                  setShowModalTrue={this.setShowModalTrue}
+                />
+              </Col>
+            )
+          })}
+        </Row>
         <SelectedBeast showModal={this.state.showModal} setShowModalFalse={this.setShowModalFalse} selectedBeast={this.state.selectedBeast} />
       </>
     );
   }
 }
 
-class SelectedBeast extends React.Component {
-  render() {
-    return (
-      <>
-        <Modal show={this.props.showModal} onHide={this.props.setShowModalFalse}>
-          <Modal.Header closeButton>
-            <Modal.Title>{this.props.selectedBeast.keyword}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <span>
-              <Image src={this.props.selectedBeast.image_url} fluid={true} className="w-100"></Image>
-              <div>{this.props.selectedBeast.description}</div>
-            </span>
-          </Modal.Body>
-        </Modal>
-      </>
-    );
-  }
-}
+
+
+
 
 export default App;
