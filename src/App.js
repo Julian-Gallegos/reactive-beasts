@@ -37,21 +37,18 @@ class App extends React.Component {
   setShowModalFalse = () => {
     this.setState({ showModal: false });
   }
-  handleSubmit = (e) => {
+  handleChange = (e) => {
     e.preventDefault();
-    console.log(e.target.formBeastName.value);
-    console.log(e.target.formHorns.value);
-
-    const matches = data.filter(beast => beast.title.includes(e.target.formBeastName.value));
-    console.log(matches);
+    let formSelection = e.target.value;
+    const matches = formSelection === 'All' ? data : data.filter(beast => beast.horns === Number(formSelection));
     this.setState({searchedBeasts: matches});
   }
 
   render() {
     return(
       <>
-        <Container> Gallery of Beasts</Container>
-        <BeastForm handleSubmit={this.handleSubmit} />
+        <Container>Gallery of Beasts</Container>
+        <BeastForm handleChange={this.handleChange} />
         <Row>
           {this.state.searchedBeasts.map((beast) => {
             return (
@@ -100,20 +97,15 @@ class BeastForm extends React.Component {
     return (
       <>
         <Container>
-          <Form onSubmit={this.props.handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBeastName">
-              <Form.Label>Search for Beast by Name</Form.Label>
-              <Form.Control placeholder="Enter name" />
-              <Form.Text className="text-muted"></Form.Text>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formHorns">
-              <Form.Label>Enter # Horns</Form.Label>
-              <Form.Control placeholder="Type a numer..." />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
+          <Form onChange={this.props.handleChange}>
+            <Form.Select className="mb-3">
+              <option>Filter beasts by selecting # of horns</option>
+              <option>All</option>
+              <option value={1}>One horn</option>
+              <option value={2}>Two horns</option>
+              <option value={3}>Three horns</option>
+              <option value={100}>LOTS of horns</option>
+            </Form.Select>
           </Form>
         </Container>
       </>
